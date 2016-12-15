@@ -147,8 +147,7 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
     }
 
 
-    it(
-      """can be use a short hand version of this called implicit classes, before using them
+    it("""can be use a short hand version of this called implicit classes, before using them
         |  there are some rules:
         |  1. They can only be used inside of an object/trait/class
         |  2. They can only take one parameter in the constructor
@@ -165,8 +164,7 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
       10.isEven should be (true)
     }
 
-    it(
-      """can also convert things to make it fit into a particular API, this is called implicit conversion,
+    it("""can also convert things to make it fit into a particular API, this is called implicit conversion,
         | in this scenario we will use a method""".stripMargin) {
 
       sealed abstract class Currency
@@ -206,7 +204,8 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
   }
 
   describe("Locating implicits recipes") {
-    it( """has a common way, to store that particular implicit recipe in an object that makes should make
+    it( """has a common way, to store that particular implicit
+        |  recipe in an object that makes should make
         |  sense and then import that object""".stripMargin) {
        object MyPredef {
          implicit class IntWrapper(x: Int) {
@@ -247,6 +246,10 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
       import scala.collection.JavaConverters._
 
       ZoneId.getAvailableZoneIds.asScala.toSet
+
+      ZoneId.getAvailableZoneIds.asScala.toSet
+        .filter(x => x.startsWith("America"))
+        .map(x => x.split("/")(1)).toList.sorted
     }
   }
 
@@ -254,8 +257,7 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
     it("""Uses <% inside of a parameterized type declaration to determine if there is a conversion available
         | then within you can treat an object as an object of that type. It is unorthodox, and has since been
         | deprecated.""".stripMargin) {
-
-      class Employee(val firstName: String, val lastName: String)
+       class Employee(val firstName: String, val lastName: String)
 
       import scala.language.implicitConversions
 
@@ -273,7 +275,6 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
       }
 
       hireEmployee("Bob Henderson") should be ("Hired Bob Henderson")
-
     }
   }
 
@@ -286,7 +287,6 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
     it(
       """uses the signature [T:WrappedType], which is equivalent to (t:T)(implicit w:WrappedType[T])
         |  let's try it with """.stripMargin) {
-
       trait Loggable[T] {
         def log(t: T): String     // abstract
       }
@@ -303,7 +303,6 @@ class AdvancedImplicitsSpec extends FunSpec with Matchers {
       }
 
       toStringz(new Employee("Brazil", "Thailand")) should be ("Brazil Thailand")
-
     }
   }
 

@@ -47,12 +47,14 @@ class AdvancedPatternMatchingSpec extends FunSpec with Matchers {
     it( """can use an _ to signify that you are not interested in a particular element,
           |  and in an Option[T] although there is no way to extract a value but if you
           |  want to ensure a shape, it would make sense""".stripMargin) {
-      val Some(_) = Some(100)
+      val a@Some(_) = Some(100)
+      a should be (Some(100))
     }
 
     it( """can use an _ even in an assignment, although, only if you wish match a particular
           |  shape""".stripMargin) {
-      val (_: Int) = 40
+      val a@(_: Int) = 40
+      a should be (40)
     }
 
 
